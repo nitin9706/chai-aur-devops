@@ -1,5 +1,6 @@
-import cors from "cors";
+import "dotenv/config"; // MUST be at the very top
 import dotenv from "dotenv";
+import cors from "cors";
 import express from "express";
 
 // Database
@@ -19,7 +20,7 @@ app.use(
     origin: process.env.FRONTEND_URL,
     methods: ["GET", "POST"],
     allowedHeaders: ["Content-Type"],
-  })
+  }),
 );
 
 app.get("/", (_req, res) => {
@@ -30,7 +31,7 @@ app.get("/", (_req, res) => {
 
 app.use("/api/v1/courses", courseRouter);
 
-app.listen(PORT, async () => {
+app.listen(PORT, "0.0.0.0", async () => {
   await mongoClient.connect();
   console.log(`Backend server running at http://localhost:${PORT}`);
 });
